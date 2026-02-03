@@ -1,9 +1,5 @@
-import { ImageCarousel } from "../_components/carousel/image-carousel";
+import { Banner } from "./components/banner";
 
 export function HomePage() {
-  return (
-    <>
-      <ImageCarousel />
-    </>
-  );
+  return <Banner />;
 }
