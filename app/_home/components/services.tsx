@@ -12,7 +12,7 @@ export function Services() {
         right: true,
       },
       buttonLabel: "Buscar",
-      buttonLink: "/search",
+      buttonLink: "/services",
     },
     {
       title: "Chat con IA",
@@ -21,7 +21,7 @@ export function Services() {
       image: "/images/chat_ia.png",
       alt: "Ilustración de comunicación",
       buttonLabel: "¡Hablemos!",
-      buttonLink: "/chat",
+      buttonLink: "/services",
     },
   ];
 
