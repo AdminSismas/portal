@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { TableCadastralData } from "../interfaces/table-cadastral-columns";
+import { TableCadastralData } from "../interfaces/cadastral-search/table-cadastral-columns";
 
 interface UseCadastralSearchProps {
   npn?: string;

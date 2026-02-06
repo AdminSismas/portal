@@ -5,8 +5,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { TableCadastralData } from "../../interfaces/table-cadastral-columns";
-import { DetailsCadastral } from "../../interfaces/details-cadastral";
+import { TableCadastralData } from "../../interfaces/cadastral-search/table-cadastral-columns";
+import { DetailsCadastral } from "../../interfaces/cadastral-search/details-cadastral";
 
 interface CadastralDetailProps {
   children: React.ReactNode;
@@ -19,7 +19,6 @@ interface PropertyDetail {
 }
 
 export function CadastralDetail({ children, baunitIdE }: CadastralDetailProps) {
-  console.log(baunitIdE);
   const idProperties: PropertyDetail[] = [
     { label: "Número predial (Formato)", property: "cadastralNumberFormat" },
     { label: "Número predial anterior", property: "cadastralLastNumber" },

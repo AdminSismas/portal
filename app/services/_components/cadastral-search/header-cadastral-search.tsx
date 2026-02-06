@@ -3,13 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { AdvanceCadastralSearchDialog } from "./advance-cadastral-search-dialog";
 import { useCadastralSearchContext } from "../../hooks/cadastral-search-context";
-import { NpnLike } from "../../interfaces/npn-like";
+import { NpnLike } from "../../interfaces/cadastral-search/npn-like";
 
 export function HeaderCadastralSearch() {
   const { setNpn, setMatricula, setPage, setSize, filterCadastralData } =
     useCadastralSearchContext();
 
   const onSubmitDetallada = (detailData: NpnLike) => {
+    console.log(detailData);
     const npn = Object.values(detailData).join("");
     setNpn(npn);
     setMatricula(""); // Limpiar matrícula cuando se busca por NPN

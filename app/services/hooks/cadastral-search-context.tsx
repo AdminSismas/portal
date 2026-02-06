@@ -7,9 +7,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { TableCadastralData } from "../interfaces/table-cadastral-columns";
+import { TableCadastralData } from "../interfaces/cadastral-search/table-cadastral-columns";
 import { useSearchParams } from "next/navigation";
-import { URL_OBJECT } from "../constants/urls";
+import { URL_OBJECT } from "../constants/cadastral-search/urls.constant";
 
 // Definir la forma del contexto
 interface CadastralSearchContextType {

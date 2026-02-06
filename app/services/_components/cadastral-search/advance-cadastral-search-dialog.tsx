@@ -13,7 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { NpnLike } from "../../interfaces/npn-like";
+import { NpnLike } from "../../interfaces/cadastral-search/npn-like";
+import { NPN_LIKE_INPUTS } from "../../constants/cadastral-search/npn-like.constant";
 
 interface AdvanceCadastralSearchDialogProps {
   children: React.ReactNode;
@@ -52,6 +53,18 @@ export function AdvanceCadastralSearchDialog({
 
   const submitingDetallada = (e: React.SubmitEvent) => {
     e.preventDefault();
+    setFormData((prev) => ({
+      departamento: prev.departamento || "__",
+      municipio: prev.municipio || "___",
+      zonas: prev.zonas || "__",
+      sector: prev.sector || "__",
+      comuna: prev.comuna || "__",
+      barrio: prev.barrio || "__",
+      manzanaVereda: prev.manzanaVereda || "____",
+      terreno: prev.terreno || "____",
+      condicion: prev.condicion || "_",
+      edificio: prev.edificio || "__",
+    }));
     onSubmitDetallada(formData);
   };
 
@@ -103,136 +116,25 @@ export function AdvanceCadastralSearchDialog({
         <form onSubmit={submitingDetallada} className="space-y-6 px-6 pb-6">
           <FieldGroup>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="departamento">Departamento</FieldLabel>
-                <Input
-                  id="departamento"
-                  type="text"
-                  placeholder="Departamento"
-                  value={formData.departamento}
-                  onChange={(e) =>
-                    handleFormChange("departamento", e.target.value)
-                  }
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="municipio">Municipio</FieldLabel>
-                <Input
-                  id="municipio"
-                  type="text"
-                  placeholder="Municipio"
-                  value={formData.municipio}
-                  onChange={(e) =>
-                    handleFormChange("municipio", e.target.value)
-                  }
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="zonas">Zonas</FieldLabel>
-                <Input
-                  id="zonas"
-                  type="text"
-                  placeholder="Zona"
-                  value={formData.zonas}
-                  onChange={(e) => handleFormChange("zonas", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="sector">Sector</FieldLabel>
-                <Input
-                  id="sector"
-                  type="text"
-                  placeholder="Sector"
-                  value={formData.sector}
-                  onChange={(e) => handleFormChange("sector", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="comuna">Comuna</FieldLabel>
-                <Input
-                  id="comuna"
-                  type="text"
-                  placeholder="Comuna"
-                  value={formData.comuna}
-                  onChange={(e) => handleFormChange("comuna", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="barrio">Barrio</FieldLabel>
-                <Input
-                  id="barrio"
-                  type="text"
-                  placeholder="Barrio"
-                  value={formData.barrio}
-                  onChange={(e) => handleFormChange("barrio", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="manzanaVereda">Manzana/Vereda</FieldLabel>
-                <Input
-                  id="manzanaVereda"
-                  type="text"
-                  placeholder="Manzana/Vereda"
-                  value={formData.manzanaVereda}
-                  onChange={(e) =>
-                    handleFormChange("manzanaVereda", e.target.value)
-                  }
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="terreno">Terreno</FieldLabel>
-                <Input
-                  id="terreno"
-                  type="text"
-                  placeholder="Terreno"
-                  value={formData.terreno}
-                  onChange={(e) => handleFormChange("terreno", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field>
-                <FieldLabel htmlFor="condicion">Condición</FieldLabel>
-                <Input
-                  id="condicion"
-                  type="text"
-                  placeholder="Condición"
-                  value={formData.condicion}
-                  onChange={(e) =>
-                    handleFormChange("condicion", e.target.value)
-                  }
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="edificio">Edificio</FieldLabel>
-                <Input
-                  id="edificio"
-                  type="text"
-                  placeholder="Edificio"
-                  value={formData.edificio}
-                  onChange={(e) => handleFormChange("edificio", e.target.value)}
-                  className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
-                />
-              </Field>
+              {NPN_LIKE_INPUTS.map((input) => (
+                <Field key={input.property}>
+                  <FieldLabel htmlFor={input.property}>
+                    {input.label}
+                  </FieldLabel>
+                  <Input
+                    id={input.property}
+                    type="number"
+                    placeholder={input.label}
+                    value={formData[input.property]}
+                    minLength={input.spaces}
+                    maxLength={input.spaces}
+                    onChange={(e) =>
+                      handleFormChange(input.property, e.target.value)
+                    }
+                    className="focus-visible:ring-green-500/50 focus-visible:border-green-500"
+                  />
+                </Field>
+              ))}
             </div>
           </FieldGroup>
 

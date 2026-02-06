@@ -1,7 +1,7 @@
 import {
   TableCadastralData,
   TableCadastralColumns,
-} from "../interfaces/table-cadastral-columns";
+} from "../../interfaces/cadastral-search/table-cadastral-columns";
 
 export const TABLE_CADASTRAL_COLUMNS: TableCadastralColumns[] = [
   { label: "Información", property: "" },
