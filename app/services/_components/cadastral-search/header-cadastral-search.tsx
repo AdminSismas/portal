@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { AdvanceCadastralSearchDialog } from "./advance-cadastral-search-dialog";
-import { useCadastralSearchContext } from "../hooks/cadastral-search-context";
-import { NpnLike } from "../interfaces/npn-like";
+import { useCadastralSearchContext } from "../../hooks/cadastral-search-context";
+import { NpnLike } from "../../interfaces/npn-like";
 
 export function HeaderCadastralSearch() {
   const { setNpn, setMatricula, setPage, setSize, filterCadastralData } =

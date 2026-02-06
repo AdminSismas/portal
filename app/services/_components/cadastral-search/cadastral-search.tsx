@@ -1,6 +1,6 @@
 import { TableCadastralSearch } from "./table-cadastral-search";
 import { HeaderCadastralSearch } from "./header-cadastral-search";
-import { CadastralSearchProvider } from "../hooks/cadastral-search-context";
+import { CadastralSearchProvider } from "../../hooks/cadastral-search-context";
 
 export function CadastralSearch() {
   return (

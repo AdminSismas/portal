@@ -5,8 +5,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { TableCadastralData } from "../interfaces/table-cadastral-columns";
-import { DetailsCadastral } from "../interfaces/details-cadastral";
+import { TableCadastralData } from "../../interfaces/table-cadastral-columns";
+import { DetailsCadastral } from "../../interfaces/details-cadastral";
 
 interface CadastralDetailProps {
   children: React.ReactNode;

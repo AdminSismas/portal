@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { NpnLike } from "../interfaces/npn-like";
+import { NpnLike } from "../../interfaces/npn-like";
 
 interface AdvanceCadastralSearchDialogProps {
   children: React.ReactNode;
