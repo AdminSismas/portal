@@ -14,7 +14,11 @@ export function Footer() {
           />
         </div>
         <div className="flex items-center justify-center md:justify-start flex-wrap gap-y-2 space-x-6">
-          <a href="directUrl" className="flex items-center space-x-2">
+          <a
+            href="https://maps.app.goo.gl/66rNfENZRTEFya9c7"
+            className="flex items-center space-x-2"
+            target="_blank"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384 512"

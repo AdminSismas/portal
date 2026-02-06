@@ -8,6 +8,8 @@ import {
   useState,
 } from "react";
 import { TableCadastralData } from "../interfaces/table-cadastral-columns";
+import { useSearchParams } from "next/navigation";
+import { URL_OBJECT } from "../constants/urls";
 
 // Definir la forma del contexto
 interface CadastralSearchContextType {
@@ -65,9 +67,13 @@ export function CadastralSearchProvider({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const urlDetallada = "https://masora.api.sismas.com.co:5001/baunit/npnlike";
-  const urlMatricula =
-    "https://masora.api.sismas.com.co:5001/baunit/attributes/matricula";
+  const params = useSearchParams();
+
+  const environment = params.get("environment") as keyof typeof URL_OBJECT;
+  const url = URL_OBJECT[environment] ?? URL_OBJECT.dev;
+
+  const urlDetallada = `${url}/baunit/npnlike`;
+  const urlMatricula = `${url}/baunit/attributes/matricula`;
 
   const fetchDataDetallada = useCallback(async () => {
     if (!npn) return;
@@ -93,7 +99,7 @@ export function CadastralSearchProvider({
     } finally {
       setIsLoading(false);
     }
-  }, [npn, page, size]);
+  }, [npn, page, size, urlDetallada]);
 
   const fetchDataMatricula = useCallback(async () => {
     if (!matricula) return;
@@ -119,7 +125,7 @@ export function CadastralSearchProvider({
     } finally {
       setIsLoading(false);
     }
-  }, [matricula, page, size]);
+  }, [matricula, page, size, urlMatricula]);
 
   // Ejecutar búsqueda cuando cambian los parámetros
   useEffect(() => {
