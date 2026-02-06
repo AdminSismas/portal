@@ -13,17 +13,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { NpnLike } from "../interfaces/npn-like";
+
+interface AdvanceCadastralSearchDialogProps {
+  children: React.ReactNode;
+  onSubmitMatricula: (matricula: string) => void;
+  onSubmitDetallada: (formData: NpnLike) => void;
+}
 
 export function AdvanceCadastralSearchDialog({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  // Form state for Matrícula
+  onSubmitMatricula,
+  onSubmitDetallada,
+}: AdvanceCadastralSearchDialogProps) {
   const [matricula, setMatricula] = useState("");
 
-  // Form state for detailed search
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<NpnLike>({
     departamento: "",
     municipio: "",
     zonas: "",
@@ -40,14 +45,14 @@ export function AdvanceCadastralSearchDialog({
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const onSubmitMatricula = (e: React.SubmitEvent) => {
+  const submitingMatricula = (e: React.SubmitEvent) => {
     e.preventDefault();
-    console.log("Búsqueda por matrícula:", matricula);
+    onSubmitMatricula(matricula);
   };
 
-  const onSubmitDetallada = (e: React.SubmitEvent) => {
+  const submitingDetallada = (e: React.SubmitEvent) => {
     e.preventDefault();
-    console.log("Búsqueda detallada:", formData);
+    onSubmitDetallada(formData);
   };
 
   return (
@@ -63,7 +68,7 @@ export function AdvanceCadastralSearchDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={onSubmitMatricula} className="space-y-4 px-6 pt-6">
+        <form onSubmit={submitingMatricula} className="space-y-4 px-6 pt-6">
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="matricula">Matrícula</FieldLabel>
@@ -95,7 +100,7 @@ export function AdvanceCadastralSearchDialog({
           </span>
         </div>
 
-        <form onSubmit={onSubmitDetallada} className="space-y-6 px-6 pb-6">
+        <form onSubmit={submitingDetallada} className="space-y-6 px-6 pb-6">
           <FieldGroup>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field>

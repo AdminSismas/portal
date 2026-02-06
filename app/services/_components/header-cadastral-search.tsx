@@ -1,10 +1,35 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { AdvanceCadastralSearchDialog } from "./advance-cadastral-search-dialog";
+import { useCadastralSearchContext } from "../hooks/cadastral-search-context";
+import { NpnLike } from "../interfaces/npn-like";
 
 export function HeaderCadastralSearch() {
+  const { setNpn, setMatricula, setPage, setSize, filterCadastralData } =
+    useCadastralSearchContext();
+
+  const onSubmitDetallada = (detailData: NpnLike) => {
+    const npn = Object.values(detailData).join("");
+    setNpn(npn);
+    setMatricula(""); // Limpiar matrícula cuando se busca por NPN
+    setPage(0);
+    setSize(10);
+  };
+
+  const onSubmitMatricula = (matriculaData: string) => {
+    setMatricula(matriculaData);
+    setNpn(""); // Limpiar NPN cuando se busca por matrícula
+    setPage(0);
+    setSize(10);
+  };
+
   return (
     <header className="flex justify-between w-full">
-      <AdvanceCadastralSearchDialog>
+      <AdvanceCadastralSearchDialog
+        onSubmitDetallada={onSubmitDetallada}
+        onSubmitMatricula={onSubmitMatricula}
+      >
         <Button className="px-4 py-2 rounded-md text-green-500 bg-transparent border-0 flex gap-2 cursor-pointer hover:bg-green-500/10 hover:text-green-700 text-sm active:bg-green-400 active:text-white active:font-semibold">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +55,7 @@ export function HeaderCadastralSearch() {
           type="text"
           className="px-4 py-2  outline-0 bg-no-repeat bg-bottom bg-size-[0%_2px] transition-[background-size] duration-300 focus-visible:bg-size-[100%_2px] bg-linear-to-r from-green-800 to-green-800"
           placeholder="Filtrar"
+          onChange={filterCadastralData}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
