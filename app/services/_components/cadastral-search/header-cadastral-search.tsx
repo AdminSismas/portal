@@ -9,7 +9,6 @@ export function HeaderCadastralSearch() {
     useCadastralSearchContext();
 
   const onSubmitDetallada = (npnLike: string) => {
-    console.log(npnLike);
     setNpn(npnLike);
     setMatricula(""); // Limpiar matrícula cuando se busca por NPN
     setPage(0);

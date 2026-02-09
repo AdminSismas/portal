@@ -23,6 +23,7 @@ interface CadastralSearchContextType {
   matricula: string;
   page: number;
   size: number;
+  url: string;
 
   // Acciones
   setNpn: (npn: string) => void;
@@ -70,7 +71,7 @@ export function CadastralSearchProvider({
   const params = useSearchParams();
 
   const environment = params.get("environment") as keyof typeof URL_OBJECT;
-  const url = URL_OBJECT[environment] ?? URL_OBJECT.dev;
+  const url = URL_OBJECT[environment] || URL_OBJECT.dev;
 
   const urlDetallada = `${url}/baunit/npnlike`;
   const urlMatricula = `${url}/baunit/attributes/matricula`;
@@ -175,6 +176,7 @@ export function CadastralSearchProvider({
     matricula,
     page,
     size,
+    url,
     setNpn,
     setMatricula,
     setPage,

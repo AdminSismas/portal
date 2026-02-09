@@ -10,26 +10,26 @@ export interface DetailsCadastral {
   cadAreaUnitbuiltCommon: number;
   cadAreaUnitbuiltPrivate: number;
   cadastralNumber: string;
-  cadastralLastNumber: null;
+  cadastralLastNumber: string | null;
   cadastralRegistryNumberTemp: string;
-  cadastralRegistryNumber: null;
+  cadastralRegistryNumber: string | null;
   cadastralCreatedAt: Date;
   domBaunitType: string;
   domBaunitCondition: string;
   domBaunitEconoDesti: string;
-  domBaunitProcessType: null;
-  cadastralLastMasiveEventAt: null;
-  cadastralLastMasiveEventCode: null;
+  domBaunitProcessType: string | null;
+  cadastralLastMasiveEventAt: string | null;
+  cadastralLastMasiveEventCode: string | null;
   cadastralLastEventAt: Date;
   cadastralLastEventCode: string;
-  baunitIdOrigin: null;
-  hash: null;
+  baunitIdOrigin: string | null;
+  hash: string | null;
   createdBy: string;
   createdAt: Date;
   updatedBy: string;
   updatedAt: Date;
-  masterGroup: null;
-  detailGroup: null;
+  masterGroup: string | null;
+  detailGroup: DetailGroup | null;
   cadastralNumberFormat: string;
   npnlike: string;
   baunitIdE: string;
@@ -39,4 +39,14 @@ export interface DetailsCadastral {
   propertyRegistryAreaE: string;
   cadastralAreaGeoE: string;
   cadNumDetail: string;
+  formatPropertyRegistryNumber?: string;
+}
+
+export interface DetailGroup {
+  percentage_group: number;
+  buildNumber: number;
+  floorNumber: number;
+  unitNumber: number;
+  masterGroupE: string | null;
+  percentageGroupS: string | null;
 }

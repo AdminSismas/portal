@@ -27,6 +27,7 @@ export function AdvanceCadastralSearchDialog({
   onSubmitMatricula,
   onSubmitDetallada,
 }: AdvanceCadastralSearchDialogProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [matricula, setMatricula] = useState("");
 
   const [formData, setFormData] = useState<NpnLike>({
@@ -49,6 +50,7 @@ export function AdvanceCadastralSearchDialog({
   const submitingMatricula = (e: React.SubmitEvent) => {
     e.preventDefault();
     onSubmitMatricula(matricula);
+    setIsOpen(false);
   };
 
   const submitingDetallada = (e: React.SubmitEvent) => {
@@ -62,24 +64,12 @@ export function AdvanceCadastralSearchDialog({
         npnLike += String(formData[input.property]).padStart(input.spaces, "0");
     });
 
-    // setFormData((prev) => ({
-    //   departamento: prev.departamento || "__",
-    //   municipio: prev.municipio || "___",
-    //   zonas: prev.zonas || "__",
-    //   sector: prev.sector || "__",
-    //   comuna: prev.comuna || "__",
-    //   barrio: prev.barrio || "__",
-    //   manzanaVereda: prev.manzanaVereda || "____",
-    //   terreno: prev.terreno || "____",
-    //   condicion: prev.condicion || "_",
-    //   edificio: prev.edificio || "__",
-    // }));
-
     onSubmitDetallada(npnLike);
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0">
         <DialogHeader className="bg-green-500/10 p-4 pr-12">
