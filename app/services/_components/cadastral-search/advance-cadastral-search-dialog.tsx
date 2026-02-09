@@ -19,7 +19,7 @@ import { NPN_LIKE_INPUTS } from "../../constants/cadastral-search/npn-like.const
 interface AdvanceCadastralSearchDialogProps {
   children: React.ReactNode;
   onSubmitMatricula: (matricula: string) => void;
-  onSubmitDetallada: (formData: NpnLike) => void;
+  onSubmitDetallada: (npnLike: string) => void;
 }
 
 export function AdvanceCadastralSearchDialog({
@@ -53,19 +53,29 @@ export function AdvanceCadastralSearchDialog({
 
   const submitingDetallada = (e: React.SubmitEvent) => {
     e.preventDefault();
-    setFormData((prev) => ({
-      departamento: prev.departamento || "__",
-      municipio: prev.municipio || "___",
-      zonas: prev.zonas || "__",
-      sector: prev.sector || "__",
-      comuna: prev.comuna || "__",
-      barrio: prev.barrio || "__",
-      manzanaVereda: prev.manzanaVereda || "____",
-      terreno: prev.terreno || "____",
-      condicion: prev.condicion || "_",
-      edificio: prev.edificio || "__",
-    }));
-    onSubmitDetallada(formData);
+
+    let npnLike = "";
+
+    NPN_LIKE_INPUTS.forEach((input) => {
+      if (!formData[input.property]) npnLike += "_".repeat(input.spaces);
+      else
+        npnLike += String(formData[input.property]).padStart(input.spaces, "0");
+    });
+
+    // setFormData((prev) => ({
+    //   departamento: prev.departamento || "__",
+    //   municipio: prev.municipio || "___",
+    //   zonas: prev.zonas || "__",
+    //   sector: prev.sector || "__",
+    //   comuna: prev.comuna || "__",
+    //   barrio: prev.barrio || "__",
+    //   manzanaVereda: prev.manzanaVereda || "____",
+    //   terreno: prev.terreno || "____",
+    //   condicion: prev.condicion || "_",
+    //   edificio: prev.edificio || "__",
+    // }));
+
+    onSubmitDetallada(npnLike);
   };
 
   return (
