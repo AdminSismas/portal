@@ -10,22 +10,19 @@ import {
 import { TableCadastralData } from "../interfaces/cadastral-search/table-cadastral-columns";
 import { useSearchParams } from "next/navigation";
 import { URL_OBJECT } from "../constants/cadastral-search/urls.constant";
+import { useCadastralPagination } from "./useCadastralPagination";
 
-// Definir la forma del contexto
 interface CadastralSearchContextType {
-  // Data y estado
-  data: TableCadastralData[];
+  searchContent: TableCadastralData[];
   isLoading: boolean;
   error: string | null;
-
-  // Parámetros de búsqueda
   npn: string;
   matricula: string;
   page: number;
   size: number;
+  totalElements: number;
+  totalPages: number;
   url: string;
-
-  // Acciones
   setNpn: (npn: string) => void;
   setMatricula: (matricula: string) => void;
   setPage: (page: number) => void;
@@ -34,12 +31,9 @@ interface CadastralSearchContextType {
   refetch: () => void;
 }
 
-// Crear el contexto con valor por defecto
 const CadastralSearchContext = createContext<CadastralSearchContextType | null>(
   null,
 );
-
-// Hook para consumir el contexto
 export function useCadastralSearchContext() {
   const context = useContext(CadastralSearchContext);
   if (!context) {
@@ -50,20 +44,18 @@ export function useCadastralSearchContext() {
   return context;
 }
 
-// Provider que maneja toda la lógica de búsqueda
 export function CadastralSearchProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Estado de búsqueda
   const [npn, setNpn] = useState("");
   const [matricula, setMatricula] = useState("");
-  const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
+  const { page, size, setPage, setSize } = useCadastralPagination();
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  // Estado de datos
-  const [data, setData] = useState<TableCadastralData[]>([]);
+  const [searchContent, setSearchContent] = useState<TableCadastralData[]>([]);
   const [originalData, setOriginalData] = useState<TableCadastralData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -83,7 +75,7 @@ export function CadastralSearchProvider({
     try {
       const params = new URLSearchParams();
       params.append("npnlike", npn);
-      params.append("page", page.toString());
+      params.append("page", (page - 1).toString());
       params.append("size", size.toString());
 
       const urlWithParams = `${urlDetallada}?${params.toString()}`;
@@ -93,8 +85,10 @@ export function CadastralSearchProvider({
 
       const result = await response.json();
       const resultData = Array.isArray(result) ? result : result.content || [];
-      setData(resultData);
+      setSearchContent(resultData);
       setOriginalData(resultData);
+      setTotalElements(result.totalElements);
+      setTotalPages(result.totalPages);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
     } finally {
@@ -109,7 +103,7 @@ export function CadastralSearchProvider({
     try {
       const params = new URLSearchParams();
       params.append("matricula", matricula);
-      params.append("page", page.toString());
+      params.append("page", (page - 1).toString());
       params.append("size", size.toString());
 
       const urlWithParams = `${urlMatricula}?${params.toString()}`;
@@ -119,8 +113,10 @@ export function CadastralSearchProvider({
 
       const result = await response.json();
       const resultData = Array.isArray(result) ? result : result.content || [];
-      setData(resultData);
+      setSearchContent(resultData);
       setOriginalData(resultData);
+      setTotalElements(result.totalElements);
+      setTotalPages(result.totalPages);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
     } finally {
@@ -135,8 +131,10 @@ export function CadastralSearchProvider({
     } else if (matricula) {
       fetchDataMatricula();
     } else {
-      setData([]);
+      setSearchContent([]);
       setOriginalData([]);
+      setTotalElements(0);
+      setTotalPages(0);
     }
   }, [npn, matricula, fetchDataDetallada, fetchDataMatricula]);
 
@@ -145,18 +143,20 @@ export function CadastralSearchProvider({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const filter = event.target.value.toLowerCase();
       if (!filter) {
-        setData(originalData);
+        setSearchContent(originalData);
         return;
       }
-      setData(
+      setSearchContent(
         originalData.filter((row) =>
           Object.values(row).some((value) =>
             String(value).toLowerCase().includes(filter),
           ),
         ),
       );
+      setTotalElements(searchContent.length);
+      setTotalPages(Math.ceil(searchContent.length / size));
     },
-    [originalData],
+    [originalData, size, searchContent.length],
   );
 
   // Función para refetch manual
@@ -169,13 +169,15 @@ export function CadastralSearchProvider({
   }, [npn, matricula, fetchDataDetallada, fetchDataMatricula]);
 
   const value: CadastralSearchContextType = {
-    data,
+    searchContent,
     isLoading,
     error,
     npn,
     matricula,
     page,
     size,
+    totalElements,
+    totalPages,
     url,
     setNpn,
     setMatricula,

@@ -45,8 +45,8 @@ export function CadastralDetail({ children, baunitIdE }: CadastralDetailProps) {
             (section) =>
               isMatrix(section.title) && (
                 <article key={section.title} className="mb-2 lg:mb-4">
-                  <header className="bg-linear-to-r from-green-100 to-white">
-                    <h2 className="text-lg lg:text-xl border-b border-slate-200 py-2 mb-2 font-semibold">
+                  <header className="bg-linear-to-r from-green-100 to-white mb-1">
+                    <h2 className="text-base border-b border-slate-200 p-1 font-semibold">
                       {section.title}
                     </h2>
                   </header>
