@@ -21,11 +21,13 @@ import { useCadastralPagination } from "@/app/services/hooks/useCadastralPaginat
 interface TableCadastralPaginationProps {
   totalElements: number;
   totalPages: number;
+  maxVisiblePages?: number;
 }
 
 export function TableCadastralPagination({
   totalElements,
   totalPages,
+  maxVisiblePages = 5,
 }: TableCadastralPaginationProps) {
   const { page, size, setPage, setSize } = useCadastralPagination();
 
@@ -33,7 +35,6 @@ export function TableCadastralPagination({
 
   const generatePages = () => {
     const pages = [];
-    const maxVisiblePages = 5;
     let startPage = Math.max(1, page - Math.floor(maxVisiblePages / 2));
     const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 

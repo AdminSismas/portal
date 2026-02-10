@@ -6,6 +6,7 @@ interface UseCadastralSearchProps {
   matricula?: string;
   page: number;
   size: number;
+  baseUrl: string;
 }
 
 export function useCadastralSearch({
@@ -13,88 +14,114 @@ export function useCadastralSearch({
   npn,
   page,
   size,
+  baseUrl,
 }: UseCadastralSearchProps) {
   const [data, setData] = useState<TableCadastralData[]>([]);
+  const [originalData, setOriginalData] = useState<TableCadastralData[]>([]);
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  // Store original API totals to restore after clearing filter
+  const [apiTotalElements, setApiTotalElements] = useState(0);
+  const [apiTotalPages, setApiTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const urlDetallada = "https://masora.api.sismas.com.co:5001/baunit/npnlike";
-  const urlMatricula =
-    "https://masora.api.sismas.com.co:5001/baunit/attributes/matricula";
+  const urlDetallada = `${baseUrl}/baunit/npnlike`;
+  const urlMatricula = `${baseUrl}/baunit/attributes/matricula`;
 
-  const fetchDataDetallada = useCallback(async () => {
-    if (!npn) return;
+  const fetchData = useCallback(async () => {
+    if (!npn && !matricula) {
+      setData([]);
+      setOriginalData([]);
+      setTotalElements(0);
+      setTotalPages(0);
+      setApiTotalElements(0);
+      setApiTotalPages(0);
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
+
     try {
       const params = new URLSearchParams();
-      params.append("npnlike", npn);
-      params.append("page", page.toString());
+      let url = "";
+
+      if (npn) {
+        params.append("npnlike", npn);
+        url = urlDetallada;
+      } else if (matricula) {
+        params.append("matricula", matricula);
+        url = urlMatricula;
+      }
+
+      params.append("page", (page - 1).toString());
       params.append("size", size.toString());
 
-      const urlWithParams = `${urlDetallada}?${params.toString()}`;
+      const urlWithParams = `${url}?${params.toString()}`;
 
       const response = await fetch(urlWithParams);
-      if (!response.ok) throw new Error("Error al obtener datos detallados");
+      if (!response.ok) {
+        throw new Error(
+          npn
+            ? "Error al obtener datos detallados"
+            : "Error al obtener datos por matrícula",
+        );
+      }
 
       const result = await response.json();
-      setData(Array.isArray(result) ? result : result.content || []);
+      const resultData = Array.isArray(result) ? result : result.content || [];
+      const tElements = result.totalElements || resultData.length;
+      const tPages =
+        result.totalPages || Math.ceil(resultData.length / size) || 1;
+
+      setData(resultData);
+      setOriginalData(resultData);
+      setTotalElements(tElements);
+      setTotalPages(tPages);
+      setApiTotalElements(tElements);
+      setApiTotalPages(tPages);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
+      setData([]);
+      setOriginalData([]);
     } finally {
       setIsLoading(false);
     }
-  }, [npn, page, size]);
-
-  const fetchDataMatricula = useCallback(async () => {
-    if (!matricula) return;
-    setIsLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams();
-      params.append("matricula", matricula);
-      params.append("page", page.toString());
-      params.append("size", size.toString());
-
-      const urlWithParams = `${urlMatricula}?${params.toString()}`;
-
-      const response = await fetch(urlWithParams);
-      if (!response.ok) throw new Error("Error al obtener datos por matrícula");
-
-      const result = await response.json();
-      setData(Array.isArray(result) ? result : result.content || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Error desconocido");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [matricula, page, size]);
+  }, [npn, matricula, page, size, urlDetallada, urlMatricula]);
 
   useEffect(() => {
-    if (npn) {
-      fetchDataDetallada();
-    } else if (matricula) {
-      fetchDataMatricula();
-    } else {
-      setData([]);
-    }
-  }, [npn, matricula, fetchDataDetallada, fetchDataMatricula]);
+    fetchData();
+  }, [fetchData]);
 
-  const filterCadastralData = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const filter = event.target.value;
-    setData((data) =>
-      data.filter((row) =>
+  const filterCadastralData = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const filter = event.target.value.toLowerCase();
+      if (!filter) {
+        setData(originalData);
+        setTotalElements(apiTotalElements);
+        setTotalPages(apiTotalPages);
+        return;
+      }
+      const filteredData = originalData.filter((row) =>
         Object.values(row).some((value) =>
-          value.toLowerCase().includes(filter.toLowerCase()),
+          String(value).toLowerCase().includes(filter),
         ),
-      ),
-    );
-  };
+      );
+      setData(filteredData);
+      setTotalElements(filteredData.length);
+      setTotalPages(Math.ceil(filteredData.length / size));
+    },
+    [originalData, size, apiTotalElements, apiTotalPages],
+  );
 
   return {
     data,
-    filterCadastralData,
+    totalElements,
+    totalPages,
     isLoading,
     error,
+    filterCadastralData,
+    refetch: fetchData,
   };
 }

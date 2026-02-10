@@ -21,8 +21,14 @@ import { TableCadastralData } from "../../interfaces/cadastral-search/table-cada
 import { TableCadastralPagination } from "./table-cadastral-pagination";
 
 export function TableCadastralSearch() {
-  const { searchContent, isLoading, error, totalPages, totalElements } =
-    useCadastralSearchContext();
+  const {
+    searchContent,
+    isLoading,
+    error,
+    totalPages,
+    totalElements,
+    maxVisiblePages,
+  } = useCadastralSearchContext();
 
   const textCenter = (property: keyof TableCadastralData) => {
     if (
@@ -125,6 +131,7 @@ export function TableCadastralSearch() {
         <TableCadastralPagination
           totalElements={totalElements}
           totalPages={totalPages}
+          maxVisiblePages={maxVisiblePages}
         />
       </div>
     </>
