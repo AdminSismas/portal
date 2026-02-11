@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "./_components/layout/header";
 import { Footer } from "./_components/layout/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ClientTitleUpdater } from "./_components/layout/client-title-updater";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sismas D.A.",
-  description: "Página de servicios de Sismas D.A.",
+  title: "Portal Sismas",
+  description: "Página de servicios de Sismas",
 };
 
 export default function RootLayout({
@@ -26,10 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Suspense fallback={null}>
+          <ClientTitleUpdater />
+        </Suspense>
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-1">

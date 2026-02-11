@@ -1,7 +1,7 @@
 export function ServicesChat() {
   return (
     <section>
-      <h1>Chat</h1>
+      <h1 className="text-transparent">Chat</h1>
     </section>
   );
 }
