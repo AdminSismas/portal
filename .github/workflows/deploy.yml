@@ -1,0 +1,42 @@
+name: Deploy Portal via SSM
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::476114140163:role/GitHub-Portal-DeployRole
+          aws-region: us-east-1
+
+      - name: Deploy using SSM
+        run: |
+          aws ssm send-command \
+            --instance-ids "i-05e4578276976506e" \
+            --document-name "AWS-RunShellScript" \
+            --comment "Deploy portal from GitHub" \
+            --parameters commands='[
+              "sudo chown -R ec2-user:ec2-user /opt/dev-portal-next",
+              "cd /opt/dev-portal-next",
+              "git pull origin main",
+              "/usr/bin/pnpm install --frozen-lockfile",
+              "/usr/bin/pnpm build",
+              "/usr/bin/pm2 delete dev-portal-sismas || true",
+              "/usr/bin/pm2 start pnpm --name dev-portal-sismas --cwd /opt/dev-portal-next -- start",
+              "/usr/bin/pm2 save",
+              "/usr/bin/pm2 status"
+            ]'
