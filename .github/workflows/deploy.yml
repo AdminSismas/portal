@@ -31,7 +31,8 @@ jobs:
             --comment "Deploy PRODUCTION portal from GitHub" \
             --parameters commands='[
               "cd /opt/portal-next",
-              "git pull origin main",
+              "sudo -u ec2-user git config --global --add safe.directory /opt/portal-next",
+              "sudo -u ec2-user git pull origin main",
               "sudo chown -R ec2-user:ec2-user /opt/portal-next",
               "sudo -u ec2-user /usr/bin/pnpm install --frozen-lockfile",
               "sudo -u ec2-user /usr/bin/pnpm build",
