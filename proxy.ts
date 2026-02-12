@@ -4,12 +4,17 @@ import { isValidEnvironment } from "./src/config/api_urls";
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/_next") || pathname.startsWith("/static")) {
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/static") ||
+    pathname.startsWith(".")
+  ) {
     return NextResponse.next();
   }
 
   const [, firstSegment] = pathname.split("/");
   if (!isValidEnvironment(firstSegment)) {
+    console.log(firstSegment);
     console.error(`Acceso inválido detectado: ${firstSegment}`);
     return;
   }

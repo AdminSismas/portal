@@ -1,6 +1,11 @@
+import { URL_ENVIRONMENTS } from "@/src/config/api_urls";
 import { ServiceCard } from "./service-card";
 
-export function Services() {
+interface ServicesProps {
+  env: keyof typeof URL_ENVIRONMENTS;
+}
+
+export function Services({ env }: ServicesProps) {
   const services = [
     {
       title: "Consulta de búsqueda catastral avanzada",
@@ -12,7 +17,7 @@ export function Services() {
         right: true,
       },
       buttonLabel: "Buscar",
-      buttonLink: "/services",
+      buttonLink: `/${env}/services`,
     },
     {
       title: "Chat con IA",
@@ -21,7 +26,7 @@ export function Services() {
       image: "/images/chat_ia.png",
       alt: "Ilustración de comunicación",
       buttonLabel: "¡Hablemos!",
-      buttonLink: "/services",
+      buttonLink: `/${env}/services`,
     },
   ];
 
