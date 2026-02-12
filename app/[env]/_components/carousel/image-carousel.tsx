@@ -33,6 +33,7 @@ export function ImageCarousel() {
                 width={1920}
                 height={1080}
                 className="w-full h-[480px] object-cover"
+                loading="eager"
               />
               <figcaption
                 className="absolute top-4 right-0 px-4 py-2 bg-green-500/80 text-white/90 font-bold"

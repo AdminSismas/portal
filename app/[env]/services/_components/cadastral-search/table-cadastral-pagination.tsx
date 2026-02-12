@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCadastralPagination } from "@/app/services/hooks/useCadastralPagination";
+import { useCadastralPagination } from "@/app/[env]/services/hooks/useCadastralPagination";
 
 interface TableCadastralPaginationProps {
   totalElements: number;

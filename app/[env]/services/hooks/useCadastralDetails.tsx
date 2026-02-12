@@ -55,7 +55,6 @@ export function useCadastralDetails({
 
         const data = (await response.json()) as DetailsCadastral;
         const formatPropertyRegistryNumber = `${data.propertyRegistryOffice}-${data.propertyRegistryNumber}`;
-        console.log(formatPropertyRegistryNumber);
         setDetails({
           ...data,
           formatPropertyRegistryNumber,

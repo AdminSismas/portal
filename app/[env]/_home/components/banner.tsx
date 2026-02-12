@@ -1,4 +1,5 @@
-import { ImageCarousel } from "@/app/_components/carousel/image-carousel";
+import Link from "next/link";
+import { ImageCarousel } from "../../_components/carousel/image-carousel";
 
 export function Banner() {
   return (
@@ -13,7 +14,7 @@ export function Banner() {
               Nuestra plataforma te permite la administración, actualización y
               consulta de información catastral en Colombia.
             </p>
-            <a
+            <Link
               className="uppercase text-white float-left bg-green-400 py-1 md:py-3 3xl:py-5 px-2 md:px-5 3xl:px-6 inline-block font-black text-xs md:text-sm lg:text-xl 3xl:text-2xl transition-all hover:bg-white hover:text-green-500 hover:font-bold"
               style={{
                 clipPath: "polygon(0 100%, 0 0, 100% 0, 100% 75%, 90% 100%)",
@@ -21,7 +22,7 @@ export function Banner() {
               href="/services"
             >
               Consulta ahora
-            </a>
+            </Link>
           </div>
         </section>
         <ImageCarousel />

@@ -1,11 +1,10 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, use, useContext, useState } from "react";
 import { TableCadastralData } from "../interfaces/cadastral-search/table-cadastral-columns";
-import { useSearchParams } from "next/navigation";
-import { URL_OBJECT } from "../constants/cadastral-search/urls.constant";
 import { useCadastralPagination } from "./useCadastralPagination";
 import { useCadastralSearch } from "./useCadastralSearch";
 import { useResponsivePages } from "./useResponsivePages";
+import { API_URLS, URL_ENVIRONMENTS } from "@/src/config/api_urls";
 
 interface CadastralSearchContextType {
   searchContent: TableCadastralData[];
@@ -40,19 +39,22 @@ export function useCadastralSearchContext() {
   return context;
 }
 
+interface CadastralSearchProviderProps {
+  children: React.ReactNode;
+  params: Promise<{ env: string }>;
+}
+
 export function CadastralSearchProvider({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  params,
+}: CadastralSearchProviderProps) {
   const [npn, setNpn] = useState("");
   const [matricula, setMatricula] = useState("");
   const { page, size, setPage, setSize } = useCadastralPagination();
   const maxVisiblePages = useResponsivePages();
 
-  const params = useSearchParams();
-  const environment = params.get("environment") as keyof typeof URL_OBJECT;
-  const url = URL_OBJECT[environment] || URL_OBJECT.dev;
+  const { env } = use(params) as { env: URL_ENVIRONMENTS };
+  const url = API_URLS[env] || API_URLS.dev;
 
   const {
     data: searchContent,

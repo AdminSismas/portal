@@ -19,10 +19,14 @@ function CadastralSearchFallback() {
   );
 }
 
-export function CadastralSearch() {
+export function CadastralSearch({
+  params,
+}: {
+  params: Promise<{ env: string }>;
+}) {
   return (
     <Suspense fallback={<CadastralSearchFallback />}>
-      <CadastralSearchProvider>
+      <CadastralSearchProvider params={params}>
         <div className="h-full w-full flex flex-col items-center px-24 lg:px-32">
           <div className="w-full">
             <h1 className="text-2xl font-bold mb-4">Búsqueda catastral</h1>
