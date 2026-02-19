@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ImageCarousel } from "../../_components/carousel/image-carousel";
+import { use } from "react";
 
-export function Banner() {
+export function Banner({ env }: { env: string }) {
   return (
     <>
       <div className="relative w-full h-[480px]">
@@ -19,7 +20,7 @@ export function Banner() {
               style={{
                 clipPath: "polygon(0 100%, 0 0, 100% 0, 100% 75%, 90% 100%)",
               }}
-              href="/services"
+              href={`/${env}/services`}
             >
               Consulta ahora
             </Link>

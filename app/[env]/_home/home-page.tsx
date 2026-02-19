@@ -6,7 +6,7 @@ import { Services } from "./components/services";
 export function HomePage({ env }: { env: keyof typeof URL_ENVIRONMENTS }) {
   return (
     <>
-      <Banner />
+      <Banner env={env} />
       <Information />
       <Services env={env} />
     </>

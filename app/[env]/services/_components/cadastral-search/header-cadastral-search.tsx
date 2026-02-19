@@ -23,7 +23,7 @@ export function HeaderCadastralSearch() {
   };
 
   return (
-    <header className="flex justify-between w-full">
+    <header className="flex flex-col gap-2 w-full md:flex-row md:justify-between md:items-center">
       <AdvanceCadastralSearchDialog
         onSubmitDetallada={onSubmitDetallada}
         onSubmitMatricula={onSubmitMatricula}
@@ -48,10 +48,10 @@ export function HeaderCadastralSearch() {
           Búsqueda avanzada
         </Button>
       </AdvanceCadastralSearchDialog>
-      <section className="flex items-center border-b border-green-800/30 bg-slate-100 ">
+      <section className="flex items-center border-b border-green-800/30 bg-slate-100 w-full md:w-auto">
         <input
           type="text"
-          className="px-4 py-2  outline-0 bg-no-repeat bg-bottom bg-size-[0%_2px] transition-[background-size] duration-300 focus-visible:bg-size-[100%_2px] bg-linear-to-r from-green-800 to-green-800"
+          className="w-full md:w-auto px-4 py-2 outline-0 bg-no-repeat bg-bottom bg-size-[0%_2px] transition-[background-size] duration-300 focus-visible:bg-size-[100%_2px] bg-linear-to-r from-green-800 to-green-800"
           placeholder="Filtrar"
           onChange={filterCadastralData}
         />
@@ -61,7 +61,7 @@ export function HeaderCadastralSearch() {
           height="20"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="icon icon-tabler icons-tabler-filled icon-tabler-filter mr-2 text-green-800"
+          className="icon icon-tabler icons-tabler-filled icon-tabler-filter mr-2 text-green-800 shrink-0"
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M20 3h-16a1 1 0 0 0 -1 1v2.227l.008 .223a3 3 0 0 0 .772 1.795l4.22 4.641v8.114a1 1 0 0 0 1.316 .949l6 -2l.108 -.043a1 1 0 0 0 .576 -.906v-6.586l4.121 -4.12a3 3 0 0 0 .879 -2.123v-2.171a1 1 0 0 0 -1 -1z" />
