@@ -1,13 +1,14 @@
 export enum URL_ENVIRONMENTS {
-  armenia = "armenia",
+  armenia = "armenia", // No se usa
   barrancabermeja = "barrancabermeja",
-  calarca = "calarca",
-  dev = "dev",
+  calarca = "calarca", // No se usa
+  dev = "dev", // No se usa
   filandia = "filandia",
   manizales = "manizales",
   masora = "masora",
   montenegro = "montenegro",
   quimbaya = "quimbaya",
+  quindio = "quindio",
 }
 
 export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
@@ -16,15 +17,25 @@ export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
     "https://barrancabermeja.api.sismas.com.co:5001",
   [URL_ENVIRONMENTS.calarca]: "https://dev.api.sismas.com.co:5002",
   [URL_ENVIRONMENTS.dev]: "https://dev.api.sismas.com.co:5001",
-  [URL_ENVIRONMENTS.filandia]: "https://country.api.sismas.com.co:5003",
+  [URL_ENVIRONMENTS.filandia]: "https://quindio.api.sismas.com.co:5001",
   [URL_ENVIRONMENTS.manizales]: "https://manizales.api.sismas.com.co:5001",
   [URL_ENVIRONMENTS.masora]: "https://masora.api.sismas.com.co:5001",
-  [URL_ENVIRONMENTS.montenegro]: "https://country.api.sismas.com.co:5002",
-  [URL_ENVIRONMENTS.quimbaya]: "https://country.api.sismas.com.co:5001",
+  [URL_ENVIRONMENTS.montenegro]: "https://quindio.api.sismas.com.co:5001",
+  [URL_ENVIRONMENTS.quimbaya]: "https://quindio.api.sismas.com.co:5001",
+  [URL_ENVIRONMENTS.quindio]: "https://quindio.api.sismas.com.co:5001",
 };
 
+const invalidEnvironments = [
+  URL_ENVIRONMENTS.armenia,
+  URL_ENVIRONMENTS.calarca,
+  ...(process.env.NODE_ENV === "production" ? [URL_ENVIRONMENTS.dev] : []),
+];
+
 export function isValidEnvironment(env: string): env is URL_ENVIRONMENTS {
-  return env in URL_ENVIRONMENTS;
+  return (
+    env in URL_ENVIRONMENTS &&
+    !invalidEnvironments.includes(env as URL_ENVIRONMENTS)
+  );
 }
 
 export function getApiUrl(env: string): string {
