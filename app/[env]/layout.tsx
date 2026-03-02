@@ -20,6 +20,7 @@ const TitlePages: Record<URL_ENVIRONMENTS, string> = {
   [URL_ENVIRONMENTS.masora]: "Antioquia",
   [URL_ENVIRONMENTS.montenegro]: "Montenegro",
   [URL_ENVIRONMENTS.quimbaya]: "Quimbaya",
+  [URL_ENVIRONMENTS.quindio]: "Quindío",
 };
 
 export default function EnvLayout({ children, params }: LayoutProps) {
