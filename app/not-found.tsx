@@ -9,6 +9,27 @@ interface EnvironmentLink {
 
 export default function NotFound() {
   const environmentLinks: EnvironmentLink[] = [
+    // {
+    //   env: URL_ENVIRONMENTS.armenia,
+    //   label: "Armenia",
+    //   description: "Ingresa al portal de Sismas con la información de Armenia",
+    // },
+    {
+      env: URL_ENVIRONMENTS.barrancabermeja,
+      label: "Barrancabermeja",
+      description:
+        "Ingresa al portal de Sismas con la información de Barrancabermeja",
+    },
+    // {
+    //   env: URL_ENVIRONMENTS.calarca,
+    //   label: "Calarca",
+    //   description: "Ingresa al portal de Sismas con la información de Calarca",
+    // },
+    {
+      env: URL_ENVIRONMENTS.filandia,
+      label: "Filandia",
+      description: "Ingresa al portal de Sismas con la información de Filandia",
+    },
     {
       env: URL_ENVIRONMENTS.manizales,
       label: "Manizales",
@@ -16,29 +37,8 @@ export default function NotFound() {
         "Ingresa al portal de Sismas con la información de Manizales",
     },
     {
-      env: URL_ENVIRONMENTS.armenia,
-      label: "Armenia",
-      description: "Ingresa al portal de Sismas con la información de Armenia",
-    },
-    {
-      env: URL_ENVIRONMENTS.barrancabermeja,
-      label: "Barrancabermeja",
-      description:
-        "Ingresa al portal de Sismas con la información de Barrancabermeja",
-    },
-    {
-      env: URL_ENVIRONMENTS.calarca,
-      label: "Calarca",
-      description: "Ingresa al portal de Sismas con la información de Calarca",
-    },
-    {
-      env: URL_ENVIRONMENTS.filandia,
-      label: "Filandia",
-      description: "Ingresa al portal de Sismas con la información de Filandia",
-    },
-    {
       env: URL_ENVIRONMENTS.masora,
-      label: "Masora",
+      label: "Antioquia",
       description: "Ingresa al portal de Sismas con la información de Masora",
     },
     {
