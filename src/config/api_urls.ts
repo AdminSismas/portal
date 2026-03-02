@@ -8,6 +8,7 @@ export enum URL_ENVIRONMENTS {
   masora = "masora",
   montenegro = "montenegro",
   quimbaya = "quimbaya",
+  quindio = "quindio",
 }
 
 export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
@@ -21,6 +22,7 @@ export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
   [URL_ENVIRONMENTS.masora]: "https://masora.api.sismas.com.co:5001",
   [URL_ENVIRONMENTS.montenegro]: "https://country.api.sismas.com.co:5002",
   [URL_ENVIRONMENTS.quimbaya]: "https://country.api.sismas.com.co:5001",
+  [URL_ENVIRONMENTS.quindio]: "https://quindio.api.sismas.com.co:5001",
 };
 
 export function isValidEnvironment(env: string): env is URL_ENVIRONMENTS {

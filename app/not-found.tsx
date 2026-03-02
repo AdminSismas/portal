@@ -52,6 +52,11 @@ export default function NotFound() {
       label: "Quimbaya",
       description: "Ingresa al portal de Sismas con la información de Quimbaya",
     },
+    {
+      env: URL_ENVIRONMENTS.quindio,
+      label: "Quindio",
+      description: "Ingresa al portal de Sismas con la información de Quindio",
+    },
   ];
   return (
     <div className="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
