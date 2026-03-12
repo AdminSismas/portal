@@ -25,6 +25,26 @@ export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
   [URL_ENVIRONMENTS.quindio]: "https://quindio.api.sismas.com.co:5001",
 };
 
+export const MAP_API_URLS: Record<URL_ENVIRONMENTS, string> = {
+  [URL_ENVIRONMENTS.armenia]:
+    "https://armenia.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.barrancabermeja]:
+    "https://country.geo.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.calarca]: "https://masora.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.dev]: "https://masora.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.filandia]:
+    "https://country.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.manizales]:
+    "https://manizales.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.masora]: "https://masora.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.montenegro]:
+    "https://country.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.quimbaya]:
+    "https://country.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.quindio]:
+    "https://country.map.sismas.com.co:8081/mapstore/",
+};
+
 const invalidEnvironments = [
   URL_ENVIRONMENTS.armenia,
   URL_ENVIRONMENTS.calarca,
@@ -43,4 +63,8 @@ export function getApiUrl(env: string): string {
     throw new Error(`Invalid environment: ${env}`);
   }
   return API_URLS[env];
+}
+
+export function getMapApiUrl(env: URL_ENVIRONMENTS): string {
+  return MAP_API_URLS[env];
 }
