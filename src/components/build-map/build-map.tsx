@@ -19,6 +19,14 @@ function BuildMapContent({ baseUrl }: { baseUrl: string }) {
 export function BuildMap({ env }: BuildMapProps) {
   const baseUrl = getMapApiUrl(env);
 
+  if (!baseUrl) {
+    return (
+      <div className="flex items-center justify-center h-[500px]">
+        <p>No se ha configurado el mapa para este entorno</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 py-8 lg:py-16 px-4 lg:px-8 w-full max-w-7xl mx-auto">
       <div className="flex flex-col gap-2">

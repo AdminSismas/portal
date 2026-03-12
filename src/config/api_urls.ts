@@ -26,23 +26,20 @@ export const API_URLS: Record<URL_ENVIRONMENTS, string> = {
 };
 
 export const MAP_API_URLS: Record<URL_ENVIRONMENTS, string> = {
-  [URL_ENVIRONMENTS.armenia]:
-    "https://armenia.map.sismas.com.co:8081/mapstore/",
+  [URL_ENVIRONMENTS.armenia]: "",
   [URL_ENVIRONMENTS.barrancabermeja]:
-    "https://country.geo.sismas.com.co:8081/mapstore/",
-  [URL_ENVIRONMENTS.calarca]: "https://masora.map.sismas.com.co:8081/mapstore/",
-  [URL_ENVIRONMENTS.dev]: "https://masora.map.sismas.com.co:8081/mapstore/",
+    "https://country.geo.sismas.com.co:8081/mapstore/#/context/barrancabermeja/897",
+  [URL_ENVIRONMENTS.calarca]: "",
+  [URL_ENVIRONMENTS.dev]: "",
   [URL_ENVIRONMENTS.filandia]:
-    "https://country.map.sismas.com.co:8081/mapstore/",
-  [URL_ENVIRONMENTS.manizales]:
-    "https://manizales.map.sismas.com.co:8081/mapstore/",
-  [URL_ENVIRONMENTS.masora]: "https://masora.map.sismas.com.co:8081/mapstore/",
+    "https://country.geo.sismas.com.co:8081/mapstore/#/context/filandia/796",
+  [URL_ENVIRONMENTS.manizales]: "",
+  [URL_ENVIRONMENTS.masora]: "",
   [URL_ENVIRONMENTS.montenegro]:
-    "https://country.map.sismas.com.co:8081/mapstore/",
+    "https://country.geo.sismas.com.co:8081/mapstore/#/context/montenegro/256",
   [URL_ENVIRONMENTS.quimbaya]:
-    "https://country.map.sismas.com.co:8081/mapstore/",
-  [URL_ENVIRONMENTS.quindio]:
-    "https://country.map.sismas.com.co:8081/mapstore/",
+    "https://country.geo.sismas.com.co:8081/mapstore/#/context/quimbaya/263",
+  [URL_ENVIRONMENTS.quindio]: "",
 };
 
 const invalidEnvironments = [
