@@ -56,7 +56,7 @@ export default function EnvLayout({ children, params }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header env={currentEnv} />
-      <main className="flex-1" data-env={currentEnv}>
+      <main className="flex-1 flex flex-col" data-env={currentEnv}>
         <TooltipProvider>{children}</TooltipProvider>
       </main>
       <Footer />
