@@ -1,7 +1,7 @@
 import {
   DetailGroup,
   DetailsCadastral,
-} from "../../interfaces/cadastral-search/details-cadastral";
+} from "@/src/components/services/interfaces/cadastral-search/details-cadastral";
 
 interface CadastralDetailFormat {
   title: string;

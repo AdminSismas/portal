@@ -1,7 +1,7 @@
 import { URL_ENVIRONMENTS } from "@/src/config/api_urls";
-import { Banner } from "./components/banner";
-import { Information } from "./components/information";
-import { Services } from "./components/services";
+import { Banner } from "./banner";
+import { Information } from "./information";
+import { Services } from "./services";
 
 export function HomePage({ env }: { env: keyof typeof URL_ENVIRONMENTS }) {
   return (

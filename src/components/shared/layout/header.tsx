@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./header.module.css";
+import { NAV_LINKS } from "@/src/constants/layout";
 
 export function Header({ env }: { env: string }) {
   const pathname = usePathname();
@@ -21,22 +22,18 @@ export function Header({ env }: { env: string }) {
         </Link>
         <nav>
           <ul className="decoration-0 list-none flex gap-5">
-            <li>
-              <Link
-                href={`/${env}`}
-                className={pathname === `/${env}` ? styles.active : ""}
-              >
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={`/${env}/services`}
-                className={pathname === `/${env}/services` ? styles.active : ""}
-              >
-                Servicios
-              </Link>
-            </li>
+            {NAV_LINKS.map(({ route, label }) => (
+              <li key={route}>
+                <Link
+                  href={`/${env}${route}`}
+                  className={
+                    pathname === `/${env}${route}` ? styles.active : ""
+                  }
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

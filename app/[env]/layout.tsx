@@ -1,5 +1,5 @@
-import { Header } from "./_components/layout/header";
-import { Footer } from "./_components/layout/footer";
+import { Header } from "@/src/components/shared/layout/header";
+import { Footer } from "@/src/components/shared/layout/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { isValidEnvironment, URL_ENVIRONMENTS } from "@/src/config/api_urls";
 import { notFound } from "next/navigation";

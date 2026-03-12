@@ -14,10 +14,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { TABLE_CADASTRAL_COLUMNS } from "../../constants/cadastral-search/table-cadastral-search.constant";
+import { TABLE_CADASTRAL_COLUMNS } from "@/src/components/services/cadastral-search/table-cadastral-search.constant";
 import { DialogCadastralDetail } from "./dialog-cadastral-detail";
-import { useCadastralSearchContext } from "../../hooks/cadastral-search-context";
-import { TableCadastralData } from "../../interfaces/cadastral-search/table-cadastral-columns";
+import { useCadastralSearchContext } from "@/src/components/services/hooks/cadastral-search-context";
+import { TableCadastralData } from "@/src/components/services/interfaces/cadastral-search/table-cadastral-columns";
 import { TableCadastralPagination } from "./table-cadastral-pagination";
 
 export function TableCadastralSearch() {

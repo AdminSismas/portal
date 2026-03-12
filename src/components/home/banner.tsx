@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ImageCarousel } from "../../_components/carousel/image-carousel";
-import { use } from "react";
+import { ImageCarousel } from "../shared/carousel/image-carousel";
 
 export function Banner({ env }: { env: string }) {
   return (

@@ -1,5 +1,5 @@
-import { CadastralSearch } from "./_components/cadastral-search/cadastral-search";
-import { ServicesChat } from "./_components/chat/services-chat";
+import { CadastralSearch } from "@/src/components/services/components/cadastral-search/cadastral-search";
+import { ServicesChat } from "@/src/components/services/components/chat/services-chat";
 
 export default function ServicesPage({
   params,
