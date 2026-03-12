@@ -1,8 +1,8 @@
-import { CADASTRAL_DETAIL_FORMAT } from "../../constants/cadastral-search/cadastral-deailt.constant";
 import {
   DetailGroup,
   DetailsCadastral,
-} from "../../interfaces/cadastral-search/details-cadastral";
+} from "@/src/components/services/interfaces/cadastral-search/details-cadastral";
+import { CADASTRAL_DETAIL_FORMAT } from "@/src/components/services/cadastral-search/cadastral-details.constant";
 
 interface CadastralDetailProps {
   getDetailInformation: (

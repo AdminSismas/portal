@@ -1,4 +1,4 @@
-import { NpnLikeInputs } from "../../interfaces/cadastral-search/npn-like-inputs.interface";
+import { NpnLikeInputs } from "../interfaces/cadastral-search/npn-like-inputs.interface";
 
 export const NPN_LIKE_INPUTS: NpnLikeInputs[] = [
   { label: "Departamento", property: "departamento", spaces: 2 },

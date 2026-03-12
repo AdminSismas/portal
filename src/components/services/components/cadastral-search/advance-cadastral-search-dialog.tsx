@@ -13,8 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { NpnLike } from "../../interfaces/cadastral-search/npn-like";
-import { NPN_LIKE_INPUTS } from "../../constants/cadastral-search/npn-like.constant";
+import { NpnLike } from "@/src/components/services/interfaces/cadastral-search/npn-like";
+import { NPN_LIKE_INPUTS } from "@/src/components/services/cadastral-search/npn-like.constant";
 
 interface AdvanceCadastralSearchDialogProps {
   children: React.ReactNode;
